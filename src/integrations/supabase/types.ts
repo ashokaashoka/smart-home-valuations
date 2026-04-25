@@ -14,16 +14,135 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      predictions: {
+        Row: {
+          area: number
+          bathrooms: number
+          bedrooms: number
+          created_at: string
+          id: string
+          location: string
+          predicted_price: number
+          user_id: string
+        }
+        Insert: {
+          area: number
+          bathrooms: number
+          bedrooms: number
+          created_at?: string
+          id?: string
+          location: string
+          predicted_price: number
+          user_id: string
+        }
+        Update: {
+          area?: number
+          bathrooms?: number
+          bedrooms?: number
+          created_at?: string
+          id?: string
+          location?: string
+          predicted_price?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          blocked: boolean
+          created_at: string
+          id: string
+          name: string
+          username: string
+        }
+        Insert: {
+          blocked?: boolean
+          created_at?: string
+          id: string
+          name: string
+          username: string
+        }
+        Update: {
+          blocked?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      properties: {
+        Row: {
+          area: number
+          bathrooms: number
+          bedrooms: number
+          created_at: string
+          created_by: string
+          id: string
+          location: string
+          predicted_price: number | null
+          price: number
+          title: string
+        }
+        Insert: {
+          area: number
+          bathrooms: number
+          bedrooms: number
+          created_at?: string
+          created_by: string
+          id?: string
+          location: string
+          predicted_price?: number | null
+          price: number
+          title: string
+        }
+        Update: {
+          area?: number
+          bathrooms?: number
+          bedrooms?: number
+          created_at?: string
+          created_by?: string
+          id?: string
+          location?: string
+          predicted_price?: number | null
+          price?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "user" | "agent" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +269,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["user", "agent", "admin"],
+    },
   },
 } as const
